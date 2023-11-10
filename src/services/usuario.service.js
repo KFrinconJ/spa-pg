@@ -98,10 +98,9 @@ export const updateUsuarios = async (accessToken) => {
 
 
 
-
-export const getAdminResource = async (accessToken) => {
+export const getUserRol = async (accessToken, id) => {
     const config = {
-        url: `${apiServerUrl}/api/messages/admin`,
+        url: `${apiServerUrl}/auth0/users/${id}`,
         method: "GET",
         headers: {
             "content-type": "application/json",

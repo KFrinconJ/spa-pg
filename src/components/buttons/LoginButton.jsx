@@ -7,7 +7,7 @@ export default function LoginButton() {
     const handleLogin = async () => {
         await loginWithRedirect({
             appState: {
-                returnTo: "/admin",
+                returnTo: "/dashboard",
             },
         })
     }

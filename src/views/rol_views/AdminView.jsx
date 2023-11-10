@@ -11,6 +11,8 @@ export default function AdminView() {
 
     const { user } = useAuth0()
 
+
+
     return (
         <>
             <NavBar></NavBar>

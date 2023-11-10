@@ -2,6 +2,8 @@ import NavBar from "../../components/NavBar"
 import CardItem from "../../components/CardItem"
 import ClassIcon from "../../assets/icon_class.png"
 import TeachIcon from "../../assets/icon_teach.png"
+import UsersIcon from "../../assets/icon_users.png"
+
 import { useAuth0 } from "@auth0/auth0-react"
 
 export default function DirectorView() {

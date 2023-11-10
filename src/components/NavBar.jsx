@@ -54,7 +54,7 @@ export default function NavBar() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link as={RouterLink} to={"/"} color="foreground">
+          <Link as={RouterLink} to={"/dashboard"} color="foreground">
             Home
           </Link>
         </NavbarItem>
@@ -74,7 +74,7 @@ export default function NavBar() {
 
         {/* TODO : Por que se renderiza de nuevo el usuario?? */}
 
-        {/* Cambia si hay el usuario entro en el sistema */}
+        {/* Cambia si el usuario entro en el sistema */}
         {isAuthenticated && !isLoading ? <UserInfo /> : <LoginButton />}
 
 

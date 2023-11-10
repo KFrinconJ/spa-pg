@@ -28,6 +28,7 @@ export default function Profile() {
                                 <span className="profile__description">{user.email}</span>
                             </div>
                         </div>
+                        {JSON.stringify(user)}
                         {/* <div className="profile__details">
                             <CodeSnippet
                                 title="Decoded ID Token"
