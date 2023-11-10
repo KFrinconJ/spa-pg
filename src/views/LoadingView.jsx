@@ -1,8 +1,7 @@
 import NavBar from "../components/NavBar"
 import Loading from "../components/Loading"
 
-export default function CallbackPage() {
-
+export default function LoadingView() {
     return (
         <>
             <NavBar></NavBar>
@@ -11,5 +10,4 @@ export default function CallbackPage() {
             </div>
         </>
     )
-
 }

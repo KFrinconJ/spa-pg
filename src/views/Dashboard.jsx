@@ -5,19 +5,21 @@ import { useState, useEffect } from 'react'
 import { getUserRol } from "../services/usuario.service"
 import DocenteView from "./rol_views/DocenteView"
 import DirectorView from "./rol_views/DirectorView"
+import LoadingView from "./LoadingView"
+
 
 export default function Dashboard() {
 
     // Obtener el token del usuario activo
     const { user, getAccessTokenSilently } = useAuth0()
-    const [rol, setRol] = useState();
-    const [isLoading, setIsLoading] = useState(true);
+    const [rol, setRol] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
     const obtenerRol = async () => {
         try {
-            const accessToken = await getAccessTokenSilently();
-            const id = user.sub; // 'sub' generalmente contiene el ID del usuario en Auth0
-            const response = await getUserRol(accessToken, id);
+            const accessToken = await getAccessTokenSilently()
+            const id = user.sub; // 'sub' contiene el ID del usuario en Auth0
+            const response = await getUserRol(accessToken, id)
 
             if (response.error) {
                 console.error('Error al obtener el rol del usuario:', response.error);
@@ -29,13 +31,13 @@ export default function Dashboard() {
         }
     };
 
-    // Luego puedes llamar a la función obtenerRol en un efecto secundario o en un manejador de eventos
+    // LLamado de la funcion obtener rol
     useEffect(() => {
-        obtenerRol().then(() => setIsLoading(false));
-    }, []);
+        obtenerRol().then(() => setIsLoading(false))
+    }, [])
 
     if (isLoading) {
-        return <div>Cargando...</div>; // Puedes renderizar un componente de carga aquí
+        return <LoadingView></LoadingView>//Renderizar vista de carga 
     }
 
 
@@ -45,11 +47,11 @@ export default function Dashboard() {
         return <AdminView></AdminView>
     }
 
-    if (user && rolUsuario == "Docente"){
+    if (user && rolUsuario == "Docente") {
         return <DocenteView></DocenteView>
     }
 
-    if (user && rolUsuario == "DP"){
+    if (user && rolUsuario == "DP") {
         return <DirectorView></DirectorView>
     }
 

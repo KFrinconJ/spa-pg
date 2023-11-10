@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
     <Auth0ProviderWithNavigate>
       <NextUIProvider>
-        <main className="dark text-foreground bg-background xl:h-screen">
+        <main className="dark text-foreground bg-background">
           <App />
         </main>
       </NextUIProvider>
