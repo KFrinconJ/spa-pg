@@ -6,6 +6,7 @@ import { getUserRol } from "../services/usuario.service"
 import DocenteView from "./rol_views/DocenteView"
 import DirectorView from "./rol_views/DirectorView"
 import LoadingView from "./LoadingView"
+import ErrorPage from "./Error"
 
 
 export default function Dashboard() {
@@ -23,6 +24,8 @@ export default function Dashboard() {
 
             if (response.error) {
                 console.error('Error al obtener el rol del usuario:', response.error);
+                setRol([{ name: "None" }])
+
             } else {
                 setRol(response.data);
             }
@@ -41,18 +44,22 @@ export default function Dashboard() {
     }
 
 
-    const rolUsuario = rol[0].name;
-    console.log(rolUsuario);
-    if (user && rolUsuario == "Administrador") {
-        return <AdminView></AdminView>
+    if (rol == false) {
+        return <ErrorPage errorCode={403} errorMessage={"Lo sentimos, aún no se ha asignado un rol a este usuario"}></ErrorPage>
     }
+    else {
+        const rolUsuario = rol[0].name;
+        if (user && rolUsuario == "Administrador") {
+            return <AdminView></AdminView>
+        }
 
-    if (user && rolUsuario == "Docente") {
-        return <DocenteView></DocenteView>
-    }
+        if (user && rolUsuario == "Docente") {
+            return <DocenteView></DocenteView>
+        }
 
-    if (user && rolUsuario == "DP") {
-        return <DirectorView></DirectorView>
+        if (user && rolUsuario == "DP") {
+            return <DirectorView></DirectorView>
+        }
     }
 
 

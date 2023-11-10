@@ -59,9 +59,9 @@ export const getListUsuarios = async (accessToken) => {
     };
 };
 
-export const getUsuario = async (accessToken) => {
+export const getDbUsuario = async (accessToken, email) => {
     const config = {
-        url: `${apiServerUrl}/api/v1/usuario`,
+        url: `${apiServerUrl}/api/v1/usuario/${email}`,
         method: "GET",
         headers: {
             "content-type": "application/json",

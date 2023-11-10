@@ -23,6 +23,7 @@ export default function AdminView() {
                     <CardItem cardTitle={"Funciones Sustantivas"} cardImg={TeachIcon} cardAltImg={"Icono de persona impartiendo clases"} cardLink={"/funciones-sustantivas"} />
                     <CardItem cardTitle={"Cursos"} cardImg={ClassIcon} cardAltImg={"Icono de tablero de clases"} cardLink={"/cursos"} />
                     <CardItem cardTitle={"Dependencias"} cardImg={OfficeIcon} cardAltImg={"Icono de edificio representando una oficina"} cardLink={"/dependencias"} />
+                    {/* Agregar Asignacion */}
                 </div>
             </div>
         </>
