@@ -2,7 +2,7 @@ import TableMain from '../../components/table_components/TableMain'
 import NavBar from '../../components/NavBar'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useEffect, useState } from 'react'
-import { columns, getListUsuarios } from '../../services/usuario.service'
+// import { columns, getListUsuarios } from '../../services/usuario.service'
 
 
 

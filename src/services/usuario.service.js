@@ -25,23 +25,8 @@ export const statusOptions = [
 
 
 
-export const getPublicResource = async () => {
-    const config = {
-        url: `${apiServerUrl}/api/v1/actividad`,
-        method: "GET",
-        headers: {
-            "content-type": "application/json",
-        },
-    };
 
-    const { data, error } = await callExternalApi({ config });
-    return {
-        data: data || null,
-        error,
-    };
-};
-
-export const getListUsuarios = async (accessToken) => {
+export const getDbListUsuarios = async (accessToken) => {
     const config = {
         url: `${apiServerUrl}/api/v1/usuario`,
         method: "GET",
@@ -59,6 +44,8 @@ export const getListUsuarios = async (accessToken) => {
     };
 };
 
+
+//Obtener usuario de la  base de datos
 export const getDbUsuario = async (accessToken, email) => {
     const config = {
         url: `${apiServerUrl}/api/v1/usuario/${email}`,
@@ -78,14 +65,17 @@ export const getDbUsuario = async (accessToken, email) => {
 };
 
 
-export const updateUsuarios = async (accessToken) => {
+
+//Actualizar usuario de la base de datos
+export const updateDbUsuario = async (accessToken, email, bodyData) => {
     const config = {
-        url: `${apiServerUrl}/api/v1/usuario`,
-        method: "GET",
+        url: `${apiServerUrl}/api/v1/usuario/${email}`,
+        method: "PUT",
         headers: {
             "content-type": "application/json",
             Authorization: `Bearer ${accessToken}`,
         },
+        data: JSON.stringify(bodyData),
     };
 
     const { data, error } = await callExternalApi({ config });
@@ -97,7 +87,7 @@ export const updateUsuarios = async (accessToken) => {
 };
 
 
-
+//Obtener rol de usuario del servicio auth0
 export const getUserRol = async (accessToken, id) => {
     const config = {
         url: `${apiServerUrl}/auth0/users/${id}`,
