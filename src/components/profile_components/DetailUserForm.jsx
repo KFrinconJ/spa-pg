@@ -1,59 +1,50 @@
 
-import { useRef } from "react";
-import { Button } from "@nextui-org/react";
+import { useRef, useState } from "react";
+import { Button, Modal, useDisclosure } from "@nextui-org/react";
 import ConditionalInput from "./ConditionalInput";
 import { updateDbUsuario } from "../../services/usuario.service";
 import { useAuth0 } from "@auth0/auth0-react";
+import ModalAlert from "../ModalAlert";
 
 export default function DetailUserForm({ dataIn }) {
 
     const formRef = useRef();
     const { getAccessTokenSilently } = useAuth0();
-
-
-
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         // Habilitar todos los campos del formulario
         Array.from(formRef.current.elements).forEach(field => {
             field.disabled = false;
         });
-
         const formData = new FormData(formRef.current);
         let updatedUser = Object.fromEntries(formData.entries());
-
-        // Aquí puedes hacer tu llamada a la API para actualizar el usuario
+        // Obtiene token del usuario
         const accessToken = await getAccessTokenSilently();
-
         Array.from(formRef.current.elements).forEach(field => {
             if (field.name === 'horas_laborales' || field.name === 'programa') {
                 field.disabled = true;
             }
         });
-
         updatedUser.cedula = parseInt(updatedUser.cedula, 10)
-
-  
-        console.log(updatedUser)
-
-
         // Llamada a la API para actualizar el usuario
         const response = await updateDbUsuario(accessToken, dataIn.email, updatedUser);
-
-
         if (response.error) {
             console.error('Error updating user:', response.error);
+            setModalMessage('Hubo un error al actualizar el usuario')
         } else {
             console.log('User updated successfully:', response.data);
+            setModalMessage('Usuario actualizado con éxito')
         }
+        setModalOpen(true);
+
     }
 
     return (
         <>
             <h2 className="text-2xl font-bold mb-2 text-center">Detalles del usuario:</h2>
-
             <form ref={formRef} onSubmit={handleSubmit} className="w-full max-w-lg mx-auto mt-5 flex flex-col items-center">
                 <div className="container">
                     <div className="flex flex-wrap -mx-3 mb-6">
@@ -120,6 +111,8 @@ export default function DetailUserForm({ dataIn }) {
                         </div>
                     </div>
                 </div>
+                <ModalAlert isOpen={modalOpen} messageAlert={modalMessage} close={() => setModalOpen(false)} titleModal={"Actualizar Usuario"}> </ModalAlert>
+
                 <Button color="primary" type="submit">Actualizar</Button>
             </form>
         </>
