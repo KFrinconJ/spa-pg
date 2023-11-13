@@ -18,13 +18,15 @@ export default function Profile() {
     const obtenerUserInfo = async () => {
         try {
             const accessToken = await getAccessTokenSilently();
-            const email = user.email
-            const response = await getDbUsuario(accessToken, email);
+            if (user) {
+                const email = user.email;
+                const response = await getDbUsuario(accessToken, email);
 
-            if (response.error) {
-                console.error("Error al obtener el email del usuario:", response.error);
-            } else {
-                setUserInfo(response.data);
+                if (response.error) {
+                    console.error("Error al obtener el email del usuario:", response.error);
+                } else {
+                    setUserInfo(response.data);
+                }
             }
         } catch (error) {
             console.error(
@@ -33,6 +35,7 @@ export default function Profile() {
             );
         }
     };
+
 
     // LLamado de la funcion obtener rol
     useEffect(() => {
