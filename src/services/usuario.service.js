@@ -3,27 +3,12 @@ import { callExternalApi } from "./external-api.service";
 const apiServerUrl = import.meta.env.VITE_API_SERVER_URL;
 
 
-
 export const columns = [
-    { name: "ID", uid: "id", sortable: false },
-    { name: "NOMBRE", uid: "nombre", sortable: true },
-    { name: "APELLIDO", uid: "apellido", sortable: true },
-    { name: "CEDULA", uid: "cedula" },
+    { name: "NOMBRE", uid: "name" },
+    { name: "ROL", uid: "rol" },
     { name: "EMAIL", uid: "email" },
-    { name: "ACTIONS", uid: "actions" },
+    { name: "ACCIONES", uid: "acciones" },
 ];
-
-
-export const visible_columns = ["nombre", "role", "email", "acciones"]
-
-
-export const statusOptions = [
-    { name: "Active", uid: "active" },
-    { name: "Paused", uid: "paused" },
-    { name: "Vacation", uid: "vacation" },
-];
-
-
 
 
 export const getDbListUsuarios = async (accessToken) => {

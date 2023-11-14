@@ -1,50 +1,13 @@
 import NavBar from '../../components/NavBar'
-import { useAuth0 } from '@auth0/auth0-react'
-import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/react'
 import { PlusIcon } from '../../icons/PlusIcon'
 import TableUsers from '../../components/users_components/TableUsers'
-import { getUsersList } from '../../services/usuario.service'
 import LoadingView from '../LoadingView'
+import { useUsers } from '../../hooks/useUsers'
+import { columns } from '../../services/usuario.service'
 
 export default function UsersView() {
-
-    const [usersList, setUsersList] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    const { getAccessTokenSilently } = useAuth0()
-
-    const columns = [
-        { name: "NOMBRE", uid: "name" },
-        { name: "ROL", uid: "rol" },
-        { name: "EMAIL", uid: "email" },
-        { name: "ACCIONES", uid: "acciones" },
-    ];
-
-
-
-    const obtenerUsuarios = async () => {
-        try {
-            const accessToken = await getAccessTokenSilently()
-            const response = await getUsersList(accessToken)
-
-            if (response.error) {
-                console.error('Error al obtener el rol del usuario:', response.error);
-                setUsersList([{ name: "None" }])
-
-            } else {
-                setUsersList(response.data);
-            }
-        } catch (error) {
-            console.error('Error al obtener el token de acceso o el ID del usuario:', error);
-        }
-    }
-
-
-    // LLamado de la funcion obtener rol
-    useEffect(() => {
-        obtenerUsuarios().then(() => setIsLoading(false))
-    }, [])
+    const { usersList, isLoading } = useUsers() //Hook personalizado
 
     if (isLoading) {
         return <LoadingView></LoadingView>//Renderizar vista de carga 
@@ -57,7 +20,7 @@ export default function UsersView() {
                 <div className='flex justify-between'>
                     <h1 className="text-4xl font-bold mb-4">Usuarios 😃</h1>
                     <div className="mb-8">
-                        <Button color='success' startContent={<PlusIcon />}>
+                        <Button color='success' startContent={<PlusIcon />} >
                             Crear Usuario
                         </Button>
                     </div>
@@ -68,5 +31,4 @@ export default function UsersView() {
             </div>
         </>
     )
-
 }

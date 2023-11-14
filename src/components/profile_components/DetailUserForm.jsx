@@ -1,6 +1,6 @@
 
 import { useRef, useState } from "react";
-import { Button, Modal, useDisclosure } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import ConditionalInput from "./ConditionalInput";
 import { updateDbUsuario } from "../../services/usuario.service";
 import { useAuth0 } from "@auth0/auth0-react";
