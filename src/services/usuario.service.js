@@ -105,3 +105,24 @@ export const getUserRol = async (accessToken, id) => {
         error,
     };
 };
+
+
+//Obtener lista de usuarios
+export const getUsersList = async (accessToken) => {
+    const config = {
+        url: `${apiServerUrl}/api/v1/usuario/auth0/users`,
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+    };
+
+    const { data, error } = await callExternalApi({ config });
+
+    return {
+        data: data || null,
+        error,
+    };
+};
+

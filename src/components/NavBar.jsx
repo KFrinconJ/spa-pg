@@ -28,20 +28,12 @@ export default function NavBar() {
 
 
   const menuItems = [
-    "Profile",
+    "Perfil",
     "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
   ];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-zinc-900">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -82,24 +74,20 @@ export default function NavBar() {
 
 
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        <NavbarMenuItem>
+          <Link as={RouterLink} to={"/dashboard"}
+            className="w-full"
+            size="lg"
+          >
+            Home
+          </Link>
+          <Link as={RouterLink} to={"/profile"}
+            className="w-full"
+            size="lg"
+          >
+            Perfil
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );
