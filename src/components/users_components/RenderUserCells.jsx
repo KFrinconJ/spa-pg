@@ -1,7 +1,8 @@
-import { Tooltip, User } from "@nextui-org/react";
+import { Tooltip, User, Link } from "@nextui-org/react";
 import { EditIcon } from "../../icons/EditIcon";
 import { DeleteIcon } from "../../icons/DeleteIcon";
 import { EyeIcon } from "../../icons/EyeIcon";
+import { Link as RouterLink } from 'react-router-dom';
 
 
 // Esta función se encarga de renderizar las celdas
@@ -27,19 +28,25 @@ export default function renderUserCell(user, columnKey) {
             return (
                 <div className="relative flex items-center gap-2">
                     <Tooltip content="Details">
-                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                            <EyeIcon />
-                        </span>
+                        <Link as={RouterLink} to={`/details/${user.email}`}>
+                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                <EyeIcon />
+                            </span>
+                        </Link>
                     </Tooltip>
                     <Tooltip content="Edit user">
-                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                            <EditIcon />
-                        </span>
+                        <Link as={RouterLink} to={`/edit/${user.email}`}>
+                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                <EditIcon />
+                            </span>
+                        </Link>
                     </Tooltip>
                     <Tooltip color="danger" content="Delete user">
-                        <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                            <DeleteIcon />
-                        </span>
+                        <Link as={RouterLink} to={`/delete/${user.email}`}>
+                            <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                                <DeleteIcon />
+                            </span>
+                        </Link>
                     </Tooltip>
                 </div>
             );
@@ -47,5 +54,3 @@ export default function renderUserCell(user, columnKey) {
             return cellValue;
     }
 }
-
-

@@ -1,7 +1,7 @@
 import React from "react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button,  } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, } from "@nextui-org/react";
 
-export default function ModalMain({ isOpen, onClose, }) {
+export default function ModalUserDetail({ isOpen, onClose, email }) {
     return (
         <>
             <Modal
@@ -12,7 +12,7 @@ export default function ModalMain({ isOpen, onClose, }) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">{email}</ModalHeader>
                             <ModalBody>
                                 {selectedItem && (
                                     <div>

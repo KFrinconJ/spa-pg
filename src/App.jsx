@@ -17,6 +17,11 @@ import DirectorView from './views/rol_views/DirectorView'
 
 //Vistas de Modulos
 import UsersView from './views/main_views/UsersView'
+import DetailUser from './components/users_components/DetailUser'
+import EditUser from './components/users_components/EditUser'
+
+
+
 import DependenciasView from './views/main_views/DependenciasView'
 import FuncionesSustantivasView from './views/main_views/FuncionesSustantivasView'
 import ProgramasAcademicosView from './views/main_views/ProgramasAcademicosView'
@@ -39,7 +44,16 @@ export default function App() {
 
       {/* Rutas que puede acceder el administrador */}
       <Route path='/admin' element={<AuthenticationGuard component={AdminView} />} />
+
+      {/* Usuarios */}
       <Route path='/usuarios' element={<AuthenticationGuard component={UsersView} />} />
+      <Route path='/details/:email' element={<AuthenticationGuard component={DetailUser} />} />
+      <Route path='/edit/:email' element={<AuthenticationGuard component={EditUser} />} />
+
+
+
+
+
       <Route path='/programas-academicos' element={<AuthenticationGuard component={ProgramasAcademicosView} />} />
       <Route path='/funciones-sustantivas' element={<AuthenticationGuard component={FuncionesSustantivasView} />} />
       <Route path='/cursos' element={<AuthenticationGuard component={CursosView} />} />
