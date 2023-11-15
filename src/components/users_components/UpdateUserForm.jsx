@@ -1,33 +1,31 @@
 
 import { useRef, useState } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 import ConditionalInput from "./ConditionalInput";
 import { updateDbUsuario } from "../../services/usuario.service";
 import { useAuth0 } from "@auth0/auth0-react";
 import ModalAlert from "../ModalAlert";
+import { useProgramasAcademicos } from "../../hooks/useProgramasAcademicos";
 
-export default function CreateUserForm() {
+export default function UpdateUserForm({ dataIn }) {
 
     const formRef = useRef();
     const { getAccessTokenSilently } = useAuth0();
     const [modalOpen, setModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
 
+
+    const { programaAcademicoList, isLoading } = useProgramasAcademicos()
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Habilitar todos los campos del formulario
-        Array.from(formRef.current.elements).forEach(field => {
-            field.disabled = false;
-        });
+
         const formData = new FormData(formRef.current);
         let updatedUser = Object.fromEntries(formData.entries());
+
         // Obtiene token del usuario
         const accessToken = await getAccessTokenSilently();
-        Array.from(formRef.current.elements).forEach(field => {
-            if (field.name === 'horas_laborales' || field.name === 'programa') {
-                field.disabled = true;
-            }
-        });
+        updatedUser.horas_laborales = parseInt(updatedUser.horas_laborales, 10)
         updatedUser.cedula = parseInt(updatedUser.cedula, 10)
         // Llamada a la API para actualizar el usuario
         const response = await updateDbUsuario(accessToken, dataIn.email, updatedUser);
@@ -44,11 +42,16 @@ export default function CreateUserForm() {
 
     return (
         <>
-            <h2 className="text-2xl font-bold mb-2 text-center">Detalles del usuario:</h2>
-            <form ref={formRef} onSubmit={handleSubmit} className="w-full max-w-lg mx-auto mt-5 flex flex-col items-center">
-                <div className="container">
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <h2 className='text-2xl font-bold mb-2 text-center'>
+                Detalles del usuario:
+            </h2>
+            <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className='w-full max-w-lg mx-auto mt-5 flex flex-col items-center'>
+                <div className='container'>
+                    <div className='flex flex-wrap -mx-3 mb-6'>
+                        <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
                             {/* Nombre */}
                             <ConditionalInput
                                 dataIn={dataIn}
@@ -56,10 +59,9 @@ export default function CreateUserForm() {
                                 dbData={dataIn.nombre}
                                 type={"text"}
                                 placeholder={"Ingresa el Nombre"}
-                                name={"nombre"}
-                            ></ConditionalInput>
+                                name={"nombre"}></ConditionalInput>
                         </div>
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" >
+                        <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
                             {/* Apellido */}
                             <ConditionalInput
                                 dataIn={dataIn}
@@ -67,12 +69,11 @@ export default function CreateUserForm() {
                                 dbData={dataIn.apellido}
                                 type={"text"}
                                 placeholder={"Ingresa el Apellido"}
-                                name={"apellido"}
-                            ></ConditionalInput>
+                                name={"apellido"}></ConditionalInput>
                         </div>
                     </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
+                    <div className='flex flex-wrap -mx-3 mb-6'>
+                        <div className='w-full px-3'>
                             {/* Cedula */}
                             <ConditionalInput
                                 dataIn={dataIn}
@@ -81,33 +82,38 @@ export default function CreateUserForm() {
                                 type={"number"}
                                 placeholder={"Ingresa el número de identificación"}
                                 name={"cedula"}
-                                inputMode="numeric"
-                            ></ConditionalInput>
+                                inputMode='numeric'></ConditionalInput>
                         </div>
                     </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div className='flex flex-wrap -mx-3 mb-6'>
+                        <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
                             {/* Horas Laborales */}
                             <ConditionalInput
                                 dataIn={dataIn}
                                 label={"Horas Laborales"}
                                 dbData={dataIn.horas_laborales}
                                 type={"text"}
-                                disabled={true}
                                 name={"horas_laborales"}
-                                placeholder={"Ingresa el numero de horas laborales"}
-                            ></ConditionalInput>
+                                placeholder={
+                                    "Ingresa el numero de horas laborales"
+                                }></ConditionalInput>
                         </div>
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0" >
+                        <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
                             {/* Programa Academico */}
-                            <ConditionalInput
-                                dataIn={dataIn}
-                                label={"Programa Académico"}
-                                dbData={dataIn.programa}
-                                type={"tel"}
-                                disabled={true}
-                                name={"programa"}
-                            ></ConditionalInput>
+                            <Select
+                                name="programa"
+                                items={programaAcademicoList}
+                                label='Programa Academico'
+                                placeholder='Seleccione un programa academico'
+                                className='max-w-xs'>
+                                {(programaAcademico) => (
+                                    <SelectItem
+                                        key={programaAcademico.nombre}
+                                        value={programaAcademico.nombre}>
+                                        {programaAcademico.nombre}
+                                    </SelectItem>
+                                )}
+                            </Select>
                         </div>
                     </div>
                 </div>
@@ -115,9 +121,10 @@ export default function CreateUserForm() {
                     isOpen={modalOpen}
                     messageAlert={modalMessage}
                     close={() => setModalOpen(false)}
-                    titleModal={"Actualizar Usuario"}>
-                </ModalAlert>
-                <Button color="primary" type="submit">Actualizar</Button>
+                    titleModal={"Actualizar Usuario"}></ModalAlert>
+                <Button color='primary' type='submit'>
+                    Actualizar
+                </Button>
             </form>
         </>
     );

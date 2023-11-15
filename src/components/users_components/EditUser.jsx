@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useUserDetail } from '../../hooks/useUserDetail';
 import LoadingView from '../../views/LoadingView';
+import UpdateUserForm from './UpdateUserForm';
+import AuthUpdateUser from './AuthUpdateUser';
 
 export default function EditUser() {
     // Obtenemos el email desde los parámetros de la ruta
@@ -16,12 +18,12 @@ export default function EditUser() {
     if (userInfo) {
         // Una vez los datos del usuario están disponibles
         return (
-            <div>
-                <h1>Editar Usuario</h1>
-                <p>Nombre: {userInfo.nombre}</p>
-                <p>Email: {userInfo.email}</p>
-                <p>Rol: {userInfo.apellido}</p>
-            </div>
+            <>
+                <UpdateUserForm dataIn={userInfo} />
+                <div className="max-w-4xl mx-auto mt-10 shadow-md overflow-hidden md:max-w-2xl">
+                    <AuthUpdateUser id={userInfo.id} />
+                </div>
+            </>
         );
 
     }

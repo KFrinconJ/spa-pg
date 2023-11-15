@@ -42,7 +42,6 @@ export default function DetailUser() {
                     <div className="max-w-4xl mx-auto mt-10 shadow-md overflow-hidden md:max-w-2xl">
                         <AccordionUser id={userInfo.id} />
                     </div>
-
                 </div>
             </>
         );
