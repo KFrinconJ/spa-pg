@@ -111,3 +111,24 @@ export const getUsersList = async (accessToken) => {
     };
 };
 
+
+
+//Obtener informacion del usuario del servicio auth0
+export const getAuthUser = async (accessToken, id) => {
+    const config = {
+        url: `${apiServerUrl}/api/v1/usuario/auth0/users/${id}`,
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+    };
+
+    const { data, error } = await callExternalApi({ config });
+
+    return {
+        data: data || null,
+        error,
+    };
+};
+
