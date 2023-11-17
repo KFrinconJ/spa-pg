@@ -106,7 +106,7 @@ export default function UpdateUserForm({ dataIn }) {
                                 label='Programa Academico'
                                 defaultSelectedKeys={[dataIn.programa]}
                                 placeholder='Seleccione un programa academico'
-                                className='max-w-xs'>
+                                >
                                 {(programaAcademico) => (
                                     <SelectItem
                                         key={programaAcademico.nombre}

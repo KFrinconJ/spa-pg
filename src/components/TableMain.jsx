@@ -1,18 +1,17 @@
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
-import { columns, users } from "../mocks/data"
 import { useCallback, useState, useMemo } from "react";
-export default function TableMain({ renderCell: propRenderCell }) {
+export default function TableMain({ renderCell: propRenderCell , columns, data}) {
 
     //Logica de la paginacion
     const rowsPerPage = 5;
     const [page, setPage] = useState(1);
-    const pages = Math.ceil(users.length / rowsPerPage);
+    const pages = Math.ceil(data.length / rowsPerPage);
 
     const items = useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        return users.slice(start, end);
-    }, [page, users]);
+        return data.slice(start, end);
+    }, [page, data]);
 
 
     const renderCell = propRenderCell || useCallback(getKeyValue, []);

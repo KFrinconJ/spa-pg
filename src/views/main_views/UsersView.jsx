@@ -16,7 +16,7 @@ export default function UsersView() {
         <>
             <NavBar></NavBar>
             <div className="container mx-auto mt-10 p-6 md:p-12 bg-gray-800 rounded-2xl shadow-md" >
-                <h1 className="text-4xl font-bold mb-4">Usuarios 😃</h1>
+                <h1 className="text-4xl font-bold mb-4">Usuarios</h1>
                 <div>
                     <TableUsers users={usersList} columns={columns}></TableUsers>
                 </div>

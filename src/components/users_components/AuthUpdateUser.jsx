@@ -118,7 +118,6 @@ export default function AuthUpdateUser({ id }) {
                                         name="blocked"
                                         label='Bloquear Usuario'
                                         placeholder='¿Bloquear este usuario?'
-                                        className='max-w-xs'
                                         defaultSelectedKeys={["Si"]}>
                                         {blokedUser.map((option) => (<SelectItem key={option.value} value={option.value}>
                                             {option.label}
@@ -127,7 +126,6 @@ export default function AuthUpdateUser({ id }) {
                                         name="blocked"
                                         label='Bloquear Usuario'
                                         placeholder='¿Bloquear este usuario?'
-                                        className='max-w-xs'
                                         defaultSelectedKeys={["No"]}>
                                         {blokedUser.map((option) => (<SelectItem key={option.value} value={option.value}>
                                             {option.label}
@@ -141,7 +139,7 @@ export default function AuthUpdateUser({ id }) {
                                         label='Rol en el Sistema'
                                         placeholder='Seleccione un rol'
                                         defaultSelectedKeys={[authUserInfo.user_metadata.rol]}
-                                        className='max-w-xs'>
+                                        >
                                         {rolList.map((rol) => (
                                             <SelectItem key={rol.value} value={rol.value}>
                                                 {rol.label}
@@ -152,7 +150,7 @@ export default function AuthUpdateUser({ id }) {
                                         label='Rol en el Sistema'
                                         placeholder='Seleccione un rol'
                                         defaultSelectedKeys={["Aun no tiene un rol asignado"]}
-                                        className='max-w-xs'>
+                                        >
                                         {rolList.map((rol) => (
                                             <SelectItem key={rol.value} value={rol.value}>
                                                 {rol.label}

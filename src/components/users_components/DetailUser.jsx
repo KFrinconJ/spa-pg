@@ -28,14 +28,12 @@ export default function DetailUser() {
                                 <h1 className="uppercase tracking-wide text-lg text-indigo-500 font-semibold">
                                     Detalle de {userInfo.email}
                                 </h1>
-                                <p className="mt-2 text-gray-300">{userInfo.id}</p>
-                                <p className="mt-2 text-gray-300">{userInfo.email_verified}</p>
-                                <p className="mt-2 text-gray-300">{userInfo.nombre}</p>
-                                <p className="mt-2 text-gray-300">{userInfo.apellido}</p>
-                                <p className="mt-2 text-gray-300">{userInfo.cedula}</p>
-                                <p className="mt-2 text-gray-300">{userInfo.activo}</p>
-                                <p className="mt-2 text-gray-300">{userInfo.horas_laborales}</p>
-                                <p className="mt-2 text-gray-300">{userInfo.programa}</p>
+                                <p className="mt-2 text-gray-300">Id: {userInfo.id}</p>
+                                <p className="mt-2 text-gray-300">Nombre: {userInfo.nombre}</p>
+                                <p className="mt-2 text-gray-300">Apellido: {userInfo.apellido}</p>
+                                <p className="mt-2 text-gray-300">Cedula: {userInfo.cedula}</p>
+                                <p className="mt-2 text-gray-300">Horas Laborales: {userInfo.horas_laborales}</p>
+                                <p className="mt-2 text-gray-300">Programa Academico: {userInfo.programa}</p>
                             </div>
                         </div>
                     </div>
