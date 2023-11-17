@@ -1,8 +1,7 @@
 
 import { useRef, useState } from "react";
 import { Accordion, AccordionItem, Button, Select, SelectItem, Avatar, Spinner } from "@nextui-org/react";
-import ConditionalInput from "./ConditionalInput";
-import { updateDbUsuario } from "../../services/usuario.service";
+import { assignRolAuthUsuario, updateAuthUsuario } from "../../services/usuario.service";
 import { useAuth0 } from "@auth0/auth0-react";
 import ModalAlert from "../ModalAlert";
 import { useAuthUserDetail } from "../../hooks/useAuthUserDetail";
@@ -12,13 +11,18 @@ export default function AuthUpdateUser({ id }) {
     const userId = `auth0|${id}`
 
     const rolList = [
-        { label: "Administrador", value: "Administrador" },
-        { label: "Director de Programa Academico", value: "DP" },
-        { label: "Docente", value: "Docente" },
+        { label: "Administrador", value: "rol_5CryHwhK15QgQHdj" },
+        { label: "Director de Programa Academico", value: "rol_xOYs6Wxaxr579f61" },
+        { label: "Docente", value: "rol_3j1sfaNSDw6mJ3gi" },
     ];
 
-    const { authUserInfo, authLoading } = useAuthUserDetail(userId)
+    const blokedUser = [
+        { label: "No", value: false },
+        { label: "Si", value: true },
 
+    ]
+
+    const { authUserInfo, authLoading } = useAuthUserDetail(userId)
 
 
     const formRef = useRef();
@@ -34,14 +38,35 @@ export default function AuthUpdateUser({ id }) {
         const formData = new FormData(formRef.current);
         let updatedUser = Object.fromEntries(formData.entries());
 
+        let rol_user = {
+            roles: [updatedUser.user_metadata,]
+        }
+
+        if (updatedUser.user_metadata === rolList[0].value) {
+            updatedUser.user_metadata = { "rol": rolList[0].label }
+        }
+        if (updatedUser.user_metadata === rolList[1].value) {
+            updatedUser.user_metadata = { "rol": rolList[1].label }
+        }
+        if (updatedUser.user_metadata === rolList[2].value) {
+            updatedUser.user_metadata = { "rol": rolList[2].label }
+        }
         // Obtiene token del usuario
         const accessToken = await getAccessTokenSilently();
-        updatedUser.horas_laborales = parseInt(updatedUser.horas_laborales, 10)
-        updatedUser.cedula = parseInt(updatedUser.cedula, 10)
+
+        if (updatedUser.blocked == "Si") {
+            updatedUser.blocked = true
+        }
+        else {
+            updatedUser.blocked = false
+        }
+        console.log(updatedUser)
         // Llamada a la API para actualizar el usuario
-        const response = await updateDbUsuario(accessToken, dataIn.email, updatedUser);
+        const responseUserRol = await assignRolAuthUsuario(accessToken, userId, rol_user)
+        const response = await updateAuthUsuario(accessToken, userId, updatedUser);
         if (response.error) {
             console.error('Error updating user:', response.error);
+            console.error('Error actualizando el rol:', responseUserRol.error)
             setModalMessage('Hubo un error al actualizar el usuario')
         } else {
             console.log('User updated successfully:', response.data);
@@ -62,7 +87,7 @@ export default function AuthUpdateUser({ id }) {
 
     if (authUserInfo) {
         return (
-            <Accordion selectionMode="multiple">
+            <Accordion >
                 <AccordionItem
                     key="1"
                     aria-label={authUserInfo.nickname}
@@ -85,67 +110,55 @@ export default function AuthUpdateUser({ id }) {
                         onSubmit={handleSubmit}
                         className='w-full max-w-lg mx-auto mt-5 flex flex-col items-center'>
                         <div className='container'>
+
                             <div className='flex flex-wrap -mx-3 mb-6'>
                                 <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-                                    {/* Nombre */}
-                                    <ConditionalInput
-                                        dataIn={authUserInfo}
-                                        label={"Nombre"}
-                                        dbData={authUserInfo.email}
-                                        type={"text"}
-                                        placeholder={"Ingresa el Nombre"}
-                                        name={"nombre"}></ConditionalInput>
+                                    {/* Bloquear usuario */}
+                                    {authUserInfo.blocked ? <Select
+                                        name="blocked"
+                                        label='Bloquear Usuario'
+                                        placeholder='¿Bloquear este usuario?'
+                                        className='max-w-xs'
+                                        defaultSelectedKeys={["Si"]}>
+                                        {blokedUser.map((option) => (<SelectItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </SelectItem>))}
+                                    </Select> : <Select
+                                        name="blocked"
+                                        label='Bloquear Usuario'
+                                        placeholder='¿Bloquear este usuario?'
+                                        className='max-w-xs'
+                                        defaultSelectedKeys={["No"]}>
+                                        {blokedUser.map((option) => (<SelectItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </SelectItem>))}
+                                    </Select>}
                                 </div>
                                 <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-                                    {/* Apellido */}
-                                    <ConditionalInput
-                                        dataIn={authUserInfo}
-                                        label={"Apellido"}
-                                        dbData={authUserInfo.email}
-                                        type={"text"}
-                                        placeholder={"Ingresa el Apellido"}
-                                        name={"apellido"}></ConditionalInput>
-                                </div>
-                            </div>
-                            <div className='flex flex-wrap -mx-3 mb-6'>
-                                <div className='w-full px-3'>
-                                    {/* Cedula */}
-                                    <ConditionalInput
-                                        dataIn={authUserInfo}
-                                        label={"Cédula"}
-                                        dbData={authUserInfo.email}
-                                        type={"number"}
-                                        placeholder={"Ingresa el número de identificación"}
-                                        name={"cedula"}
-                                        inputMode='numeric'></ConditionalInput>
-                                </div>
-                            </div>
-                            <div className='flex flex-wrap -mx-3 mb-6'>
-                                <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-                                    {/* Horas Laborales */}
-                                    <ConditionalInput
-                                        dataIn={authUserInfo}
-                                        label={"Horas Laborales"}
-                                        dbData={authUserInfo.email}
-                                        type={"text"}
-                                        name={"horas_laborales"}
-                                        placeholder={
-                                            "Ingresa el numero de horas laborales"
-                                        }></ConditionalInput>
-                                </div>
-                                <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-                                    {/* Programa Academico */}
-                                    <Select
-                                        name="Rol"
-                                        label='Roles del Sistema'
+                                    {/* Roles */}
+                                    {authUserInfo.user_metadata.rol ? <Select
+                                        name="user_metadata"
+                                        label='Rol en el Sistema'
                                         placeholder='Seleccione un rol'
+                                        defaultSelectedKeys={[authUserInfo.user_metadata.rol]}
                                         className='max-w-xs'>
                                         {rolList.map((rol) => (
                                             <SelectItem key={rol.value} value={rol.value}>
                                                 {rol.label}
                                             </SelectItem>
                                         ))}
-                                    </Select>
+                                    </Select> : <Select
+                                        name="user_metadata"
+                                        label='Rol en el Sistema'
+                                        placeholder='Seleccione un rol'
+                                        defaultSelectedKeys={["Aun no tiene un rol asignado"]}
+                                        className='max-w-xs'>
+                                        {rolList.map((rol) => (
+                                            <SelectItem key={rol.value} value={rol.value}>
+                                                {rol.label}
+                                            </SelectItem>
+                                        ))}
+                                    </Select>}
                                 </div>
                             </div>
                         </div>

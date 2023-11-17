@@ -132,3 +132,44 @@ export const getAuthUser = async (accessToken, id) => {
     };
 };
 
+export const updateAuthUsuario = async (accessToken, id, bodyData) => {
+    const config = {
+        url: `${apiServerUrl}/api/v1/usuario/auth0/users/${id}`,
+        method: "PUT",
+        headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+        data: JSON.stringify(bodyData),
+    };
+
+    const { data, error } = await callExternalApi({ config });
+
+    return {
+        data: data || null,
+        error,
+    };
+};
+
+
+export const assignRolAuthUsuario = async (accessToken, id, bodyData) => {
+    const config = {
+        url: `${apiServerUrl}/api/v1/usuario/auth0/users/${id}`,
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+        data: JSON.stringify(bodyData),
+    };
+
+    const { data, error } = await callExternalApi({ config });
+
+    return {
+        data: data || null,
+        error,
+    };
+};
+
+
+
