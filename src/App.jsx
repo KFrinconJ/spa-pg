@@ -29,9 +29,25 @@ import EditCurso from './components/curso_components/EditCurso'
 
 
 
-import DependenciasView from './views/main_views/DependenciasView'
-import FuncionesSustantivasView from './views/main_views/FuncionesSustantivasView'
+//Programas Academicos
 import ProgramasAcademicosView from './views/main_views/ProgramasAcademicosView'
+import EditProgramaAcademico from './components/programa_academico_components/EditProgramaAcademico'
+import DetailProgramaAcademico from './components/programa_academico_components/DetailProgramaAcademico'
+
+
+
+
+//Dependencias
+import DependenciasView from './views/main_views/DependenciasView'
+
+
+
+//Actividad
+
+
+
+//Funciones Sustantivas
+import FuncionesSustantivasView from './views/main_views/FuncionesSustantivasView'
 
 
 export default function App() {
@@ -59,21 +75,26 @@ export default function App() {
 
 
       {/* Cursos */}
+      <Route path='/cursos' element={<AuthenticationGuard component={CursosView} />} />
       <Route path='cursos/detalles/:id' element={<AuthenticationGuard component={DetailCurso} />} />
       <Route path='cursos/editar/:id' element={<AuthenticationGuard component={EditCurso} />} />
 
 
-      
-
-
-
+      {/* Programa Academico */}
       <Route path='/programas-academicos' element={<AuthenticationGuard component={ProgramasAcademicosView} />} />
+      <Route path='programas-academicos/detalles/:snies' element={<AuthenticationGuard component={DetailProgramaAcademico} />} />
+      <Route path='programas-academicos/editar/:snies' element={<AuthenticationGuard component={EditProgramaAcademico} />} />
+
+
+
+
+
+
       <Route path='/funciones-sustantivas' element={<AuthenticationGuard component={FuncionesSustantivasView} />} />
-      <Route path='/cursos' element={<AuthenticationGuard component={CursosView} />} />
       <Route path='/dependencias' element={<AuthenticationGuard component={DependenciasView} />} />
 
 
-      
+
       <Route path='/docente' element={<AuthenticationGuard component={DocenteView} />} />
 
 
