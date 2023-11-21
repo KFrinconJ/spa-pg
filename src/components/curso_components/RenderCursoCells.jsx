@@ -4,7 +4,6 @@ import { DeleteIcon } from "../../icons/DeleteIcon";
 import { EyeIcon } from "../../icons/EyeIcon";
 import { Link as RouterLink } from 'react-router-dom';
 
-
 // Esta función se encarga de renderizar las celdas
 export default function renderCursoCell(data, columnKey) {
     const cellValue = data[columnKey];
@@ -32,21 +31,21 @@ export default function renderCursoCell(data, columnKey) {
             return (
                 <div className="relative flex items-center gap-2">
                     <Tooltip content="Detalles del curso">
-                        <Link as={RouterLink} to={`/details/${data.id}`}>
+                        <Link as={RouterLink} to={`detalles/${data.id}`}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EyeIcon />
                             </span>
                         </Link>
                     </Tooltip>
                     <Tooltip content="Editar curso">
-                        <Link as={RouterLink} to={`/edit/${data.id}`}>
+                        <Link as={RouterLink} to={`editar/${data.id}`}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EditIcon />
                             </span>
                         </Link>
                     </Tooltip>
                     <Tooltip color="danger" content="Eliminar curso">
-                        <Link as={RouterLink} to={`/delete/${data.id}`}>
+                        <Link as={RouterLink} to={`eliminar/${data.id}`}>
                             <span className="text-lg text-danger cursor-pointer active:opacity-50">
                                 <DeleteIcon />
                             </span>

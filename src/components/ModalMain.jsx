@@ -1,36 +1,16 @@
 import React from "react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button,  } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 
-export default function ModalMain({ isOpen, onClose, }) {
+export default function ModalMain({ children, isOpen, close, titleModal }) {
+
     return (
         <>
-            <Modal
-                size='md'
-                isOpen={isOpen}
-                onClose={onClose}
-            >
+            <Modal isOpen={isOpen} onOpenChange={close}>
                 <ModalContent>
-                    {(onClose) => (
-                        <>
-                            <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-                            <ModalBody>
-                                {selectedItem && (
-                                    <div>
-                                        <p>Name: {selectedItem.name}</p>
-                                        <p>Email: {selectedItem.email}</p>
-                                    </div>
-                                )}
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="danger" variant="light" onPress={onClose}>
-                                    Close
-                                </Button>
-                                <Button color="primary" onPress={onClose}>
-                                    Action
-                                </Button>
-                            </ModalFooter>
-                        </>
-                    )}
+                    <ModalHeader className="flex flex-col gap-1 text-center">{titleModal}</ModalHeader>
+                    <ModalBody className="text-center">
+                        {children}
+                    </ModalBody>
                 </ModalContent>
             </Modal>
         </>

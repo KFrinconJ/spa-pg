@@ -1,29 +1,27 @@
 import { useParams } from 'react-router-dom';
-import { useUserDetail } from '../../hooks/useUserDetail';
 import LoadingView from '../../views/LoadingView';
-import UpdateUserForm from './UpdateUserForm';
+import CursoForm from './CursoForm';
+import { useCurso } from '../../hooks/useCursos';
 import NavBar from '../NavBar';
-import AuthUpdateUser from './AuthUpdateUser';
 
-export default function EditUser() {
+export default function EditCurso() {
     // Obtenemos el email desde los parámetros de la ruta
-    const { email } = useParams();
+    const { id } = useParams();
 
-    const { userInfo, isLoading } = useUserDetail(email)
+    const { curso, isLoading } = useCurso(id)
 
 
     if (isLoading) {
         return <LoadingView></LoadingView>//Renderizar vista de carga 
     }
 
-    if (userInfo) {
+    if (curso) {
         // Una vez los datos del usuario están disponibles
         return (
             <>
                 <NavBar></NavBar>
-                <UpdateUserForm dataIn={userInfo} />
                 <div className="max-w-4xl mx-auto mt-10 shadow-md overflow-hidden md:max-w-2xl">
-                    <AuthUpdateUser id={userInfo.id} />
+                    <CursoForm dataIn={curso} />
                 </div>
             </>
         );

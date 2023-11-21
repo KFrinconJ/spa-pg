@@ -16,16 +16,22 @@ import DirectorView from './views/rol_views/DirectorView'
 
 
 //Vistas de Modulos
+// Usuarios
 import UsersView from './views/main_views/UsersView'
 import DetailUser from './components/users_components/DetailUser'
 import EditUser from './components/users_components/EditUser'
+
+
+// Cursos
+import CursosView from './views/main_views/CursosView'
+import DetailCurso from './components/curso_components/DetailCurso'
+import EditCurso from './components/curso_components/EditCurso'
 
 
 
 import DependenciasView from './views/main_views/DependenciasView'
 import FuncionesSustantivasView from './views/main_views/FuncionesSustantivasView'
 import ProgramasAcademicosView from './views/main_views/ProgramasAcademicosView'
-import CursosView from './views/main_views/CursosView'
 
 
 export default function App() {
@@ -51,6 +57,13 @@ export default function App() {
       <Route path='/edit/:email' element={<AuthenticationGuard component={EditUser} />} />
 
 
+
+      {/* Cursos */}
+      <Route path='cursos/detalles/:id' element={<AuthenticationGuard component={DetailCurso} />} />
+      <Route path='cursos/editar/:id' element={<AuthenticationGuard component={EditCurso} />} />
+
+
+      
 
 
 
