@@ -16,7 +16,10 @@ export default function DocenteView() {
                 <div className="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                     <CardItem cardTitle={"Funciones Sustantivas"} cardImg={TeachIcon} cardAltImg={"Icono de persona impartiendo clases"} cardLink={"/funciones-sustantivas"} />
                     <CardItem cardTitle={"Cursos"} cardImg={ClassIcon} cardAltImg={"Icono de tablero de clases"} cardLink={"/cursos"} />
+
                     {/* Agregar asignacion */}
+                    <CardItem cardTitle={"Asignaciones"} cardImg={OfficeIcon} cardAltImg={"Icono de edificio representando una oficina"} cardLink={"/asignaciones"} />
+
                 </div>
             </div>
         </>

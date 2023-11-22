@@ -50,6 +50,13 @@ import DependenciasView from './views/main_views/DependenciasView'
 import FuncionesSustantivasView from './views/main_views/FuncionesSustantivasView'
 
 
+//Grupos
+import GruposView from './views/main_views/GruposView'
+import DetailGrupo from './components/grupo_components/DetailGrupo'
+import EditGrupo from './components/grupo_components/EditGrupo'
+
+
+
 export default function App() {
 
 
@@ -85,6 +92,10 @@ export default function App() {
       <Route path='programas-academicos/detalles/:snies' element={<AuthenticationGuard component={DetailProgramaAcademico} />} />
       <Route path='programas-academicos/editar/:snies' element={<AuthenticationGuard component={EditProgramaAcademico} />} />
 
+      {/* Grupos */}
+      <Route path='/grupos' element={<AuthenticationGuard component={GruposView} />} />
+      <Route path='/grupos/detalles/:id' element={<AuthenticationGuard component={DetailGrupo} />} />
+      <Route path='/grupos/editar/:id' element={<AuthenticationGuard component={EditGrupo} />} />
 
 
 
@@ -103,7 +114,6 @@ export default function App() {
 
       {/* Rutas que puede acceder el director del programa academico */}
       <Route path='/director' element={<AuthenticationGuard component={DirectorView} />} />
-      <Route path='/cursos' element={<AuthenticationGuard component={CursosView} />} />
       <Route path='/usuarios' element={<AuthenticationGuard component={UsersView} />} />
 
 

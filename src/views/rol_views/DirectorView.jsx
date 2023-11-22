@@ -20,6 +20,8 @@ export default function DirectorView() {
                     <CardItem cardTitle={"Funciones Sustantivas"} cardImg={TeachIcon} cardAltImg={"Icono de persona impartiendo clases"} cardLink={"/funciones-sustantivas"} />
                     <CardItem cardTitle={"Cursos"} cardImg={ClassIcon} cardAltImg={"Icono de tablero de clases"} cardLink={"/cursos"} />
                     <CardItem cardTitle={"Docentes"} cardImg={UsersIcon} cardAltImg={"Icono de usuarios"} cardLink={"/usuarios"} />
+                    <CardItem cardTitle={"Asignaciones"} cardImg={OfficeIcon} cardAltImg={"Icono de edificio representando una oficina"} cardLink={"/asignaciones"} />
+
                     {/* Agregar Asignacion */}
                 </div>
             </div>

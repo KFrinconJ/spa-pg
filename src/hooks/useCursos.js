@@ -58,9 +58,3 @@ export const useCurso = (id) => {
 
     return { curso, isLoading }
 }
-
-
-
-
-
-
