@@ -3,16 +3,10 @@ import { useUserDetail } from "../../hooks/useUserDetail";
 import { Spinner } from "@nextui-org/spinner";
 
 
-export default function HorasUsuarioInput({ email, totalHoras, onHorasChange }) {
+export default function HorasUsuarioInput({ email, totalHoras, onHoraSelect }) {
 
     const { userInfo, isLoading } = useUserDetail(email)
 
-    console.log(email)
-    console.log(userInfo)
-
-    const handleChange = (e) => {
-        onHorasChange(e.target.value);
-    }
 
     if (isLoading) {
         return (
@@ -27,7 +21,7 @@ export default function HorasUsuarioInput({ email, totalHoras, onHorasChange }) 
 
         return (
             <div className="w-1/5">
-                <Input type="text" label="Horas Laborales" placeholder="Horas Laborales" value={horasRestantes} onChange={handleChange} />
+                <Input type="text" label="Horas Laborales" placeholder="Horas Laborales" value={horasRestantes}  onChange={(e)=>onHoraSelect(e.target.value)} />
             </div>
         );
 

@@ -34,7 +34,7 @@ export default function CursosList({ cursos }) {
                     </CardHeader>
                     <Divider />
                     <CardBody>
-                        <p className="text-sm">{curso.cantidad_horas}</p>
+                        <p className="text-sm">Horas semanales: {curso.cantidad_horas}</p>
                     </CardBody>
                 </Card>
             ))}

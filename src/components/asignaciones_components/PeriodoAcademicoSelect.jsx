@@ -3,7 +3,7 @@ import { Spinner } from "@nextui-org/spinner";
 import { usePeriodosAcademicos } from "../../hooks/usePeriodoAcademico";
 
 
-export default function PeriodoAcademicoSelect() {
+export default function PeriodoAcademicoSelect({onPeriodoAcademicoSelect}) {
 
 
     const { periodosAcademicosList, isLoading } = usePeriodosAcademicos()
@@ -15,13 +15,13 @@ export default function PeriodoAcademicoSelect() {
         )
     }
 
-    console.log(periodosAcademicosList)
     return (
         <Select
             items={periodosAcademicosList}
             label="Periodo Academico"
             placeholder="Seleccionar el periodo academico"
             className="max-w-xs"
+            onChange={(e)=>onPeriodoAcademicoSelect(e.target.value)}
         >
             {(periodoAcademico) => <SelectItem key={periodoAcademico.id}>{periodoAcademico.nombre}</SelectItem>}
         </Select>

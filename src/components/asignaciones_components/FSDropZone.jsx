@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardHeader, CardBody, Divider } from "@nextui-org/react";
+import { DeleteIcon } from "../../icons/DeleteIcon";
 
 export default function FuncionesSustantivasDropZone({ onDropFuncion, onRemoveFuncion }) {
     const [droppedFunciones, setDroppedFunciones] = useState([]);
@@ -30,20 +31,23 @@ export default function FuncionesSustantivasDropZone({ onDropFuncion, onRemoveFu
         >
             {droppedFunciones.length === 0 && <p>Arrastra y suelta aquí</p>}
             {droppedFunciones.map((funcion) => (
-                <Card className="max-w-[300px] m-4" key={funcion.id}>
+                <Card className="max-w-[300px] m-1" key={funcion.id}>
                     <CardHeader className="flex gap-3">
                         <div className="flex flex-col">
                             <p className="text-sm">{funcion.nombre}</p>
                             <p className="text-xs text-default-500">{funcion.dependencia}</p>
                         </div>
-                        <button onClick={() => removeFuncion(funcion.id)}>Eliminar</button>
+                        <button onClick={() => removeFuncion(funcion.id)} className="text-lg text-danger cursor-pointer active:opacity-50">
+                            <DeleteIcon />
+                        </button>
                     </CardHeader>
                     <Divider />
                     <CardBody>
-                        <p className="text-sm">{funcion.cantidad_horas}</p>
+                        <p className="text-sm">Horas semanales: {funcion.cantidad_horas}</p>
                     </CardBody>
                 </Card>
             ))}
         </div>
     );
+    
 }

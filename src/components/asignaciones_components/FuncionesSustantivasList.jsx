@@ -34,7 +34,7 @@ export default function FuncionesSustantivasList({ funcionesSustantivas }) {
                     </CardHeader>
                     <Divider />
                     <CardBody>
-                        <p className="text-sm">{funcionSustantiva.cantidad_horas}</p>
+                        <p className="text-sm">Horas semanales: {funcionSustantiva.cantidad_horas}</p>
                     </CardBody>
                 </Card>
             ))}

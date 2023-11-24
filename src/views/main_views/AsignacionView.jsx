@@ -11,20 +11,21 @@ import FuncionesSustantivasList from '../../components/asignaciones_components/F
 import DropZone from '../../components/asignaciones_components/DropZone';
 import FuncionesSustantivasDropZone from '../../components/asignaciones_components/FSDropZone';
 import { Button } from '@nextui-org/react';
-import { createFuncionSustantiva } from '../../services/funcion_sustantiva.service';
+import { createAsignacion } from '../../services/asignacion.service';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
 export default function AsignacionView() {
 
-    const { getAccessTokenSilently} = useAuth0()
+    const { getAccessTokenSilently } = useAuth0()
     const { funcionesSustantivasList } = useFuncionesSustantivas()
     const { cursosList, isLoading } = useCursos() //Hook personalizado
     const [selectedUser, setSelectedUser] = useState(null); // Estado para el usuario seleccionado
+    const [selectedPeriod, setSelectedPeriodo] = useState(null); // Estado para el usuario seleccionado
     const [totalHoras, setTotalHoras] = useState(0); // Estado para las horas totales de los cursos en la zona de soltar
     const [asignacion, setAsignacion] = useState({
         docente: "",
-        periodo_academico: "",
+        periodo_academico: 1,
         horas_disponibles: 0,
         cursos: [],
         funciones_sustantivas: []
@@ -36,7 +37,14 @@ export default function AsignacionView() {
     }
 
     const handlePeriodoAcademicoSelect = (periodo) => {
-        setAsignacion(prev => ({ ...prev, periodo_academico: periodo }));
+        setSelectedPeriodo(periodo)
+        setAsignacion(prev => ({ ...prev, periodo_academico: parseInt(periodo, 10) }));
+
+    }
+
+    const handleHoraSelect = (hora) => {
+        setSelectedHora(hora)
+        setAsignacion(prev => ({ ...prev, horas_disponibles: parseInt(hora, 10) }))
     }
 
     const handleHorasChange = (horas) => {
@@ -69,12 +77,12 @@ export default function AsignacionView() {
             funciones_sustantivas: prev.funciones_sustantivas.filter(f => f.id !== funcion.id)
         }));
     }
-    
 
-    const handleClick = async() => {
+
+    const handleClick = async () => {
 
         const accessToken = await getAccessTokenSilently()
-        const response = await createFuncionSustantiva(accessToken, asignacion)
+        const response = await createAsignacion(accessToken, asignacion)
         console.log(response)
 
     }
@@ -86,23 +94,33 @@ export default function AsignacionView() {
     return (
         <>
             <NavBar></NavBar>
-            <div className="container mx-auto mt-10 p-6 md:p-12 bg-gray-800 rounded-2xl shadow-md" >
+            <div className="container mx-auto mt-10 p-6 md:p-12 bg-gray-800 rounded-2xl shadow-md text-white" >
                 <div className='flex justify-evenly'>
-                    <UserSelect onUserSelect={handleUserSelect}></UserSelect> {/* Pasamos la función setSelectedUser como prop */}
-                    <PeriodoAcademicoSelect onPeriodoAcademicoSelect={handlePeriodoAcademicoSelect}></PeriodoAcademicoSelect>
-                    <HorasUsuarioInput email={selectedUser} totalHoras={totalHoras} onHorasChange={handleHorasChange}></HorasUsuarioInput>
+                    <UserSelect onUserSelect={handleUserSelect} className="bg-gray-700 p-2 rounded-lg"></UserSelect>
+                    <PeriodoAcademicoSelect onPeriodoAcademicoSelect={handlePeriodoAcademicoSelect} className="bg-gray-700 p-2 rounded-lg"></PeriodoAcademicoSelect>
+                    <HorasUsuarioInput email={selectedUser} totalHoras={totalHoras} onHoraSelect={handleHoraSelect} className="bg-gray-700 p-2 rounded-lg"></HorasUsuarioInput>
                 </div>
                 <div className='m-8 flex justify-evenly'>
-
-                    <CursosList cursos={cursosList}></CursosList>
-                    <DropZone onDropCurso={handleDropCurso} />
-                    <FuncionesSustantivasList funcionesSustantivas={funcionesSustantivasList} />
-                    <FuncionesSustantivasDropZone onDropFuncion={handleDropFuncion} onRemoveFuncion={handleRemoveFuncion} />
+                    <div>
+                        <p className="text-xl font-bold text-center mb-5">Cursos</p>
+                        <div className='flex gap-3'>
+                            <CursosList cursos={cursosList} className="bg-gray-700 p-2 rounded-lg"></CursosList>
+                            <DropZone onDropCurso={handleDropCurso} className="bg-gray-700 p-2 rounded-lg"></DropZone>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="text-xl font-bold text-center mb-5">Funciones Sustantivas</p>
+                        <div className='flex gap-3'>
+                            <FuncionesSustantivasList funcionesSustantivas={funcionesSustantivasList} className="bg-gray-700 p-2 rounded-lg"></FuncionesSustantivasList>
+                            <FuncionesSustantivasDropZone onDropFuncion={handleDropFuncion} onRemoveFuncion={handleRemoveFuncion} className="bg-gray-700 p-2 rounded-lg"></FuncionesSustantivasDropZone>
+                        </div>
+                    </div>
                 </div>
+                <div className='flex justify-center items-center'>
+                    <Button onClick={handleClick} color='success' className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Guardar</Button>
 
-
-                <Button onClick={handleClick}>Guardar</Button>
+                </div>
             </div>
         </>
     )
-}
+}    
