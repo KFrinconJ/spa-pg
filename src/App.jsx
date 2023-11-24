@@ -39,11 +39,15 @@ import DetailProgramaAcademico from './components/programa_academico_components/
 
 //Dependencias
 import DependenciasView from './views/main_views/DependenciasView'
+import EditDependencia from './components/dependencia_components/EditDependencia'
+import DetailDependencia from './components/dependencia_components/DetailDependencia'
 
 
 
 //Actividad
-
+import ActividadesView from './views/main_views/ActividadesView'
+import DetailActividad from './components/actividad_components/DetailActividad'
+import EditActividad from './components/actividad_components/EditActividad'
 
 
 //Funciones Sustantivas
@@ -100,13 +104,32 @@ export default function App() {
 
 
 
-
+      {/* Funciones Sustantivas */}
       <Route path='/funciones-sustantivas' element={<AuthenticationGuard component={FuncionesSustantivasView} />} />
+
+      {/* Dependencias */}
       <Route path='/dependencias' element={<AuthenticationGuard component={DependenciasView} />} />
+      <Route path='/dependencias/detalles/:id' element={<AuthenticationGuard component={DetailDependencia} />} />
+      <Route path='/dependencias/editar/:id' element={<AuthenticationGuard component={EditDependencia} />} />
 
 
 
-      <Route path='/docente' element={<AuthenticationGuard component={DocenteView} />} />
+      {/* Actividades */}
+      <Route path='/actividades' element={<AuthenticationGuard component={ActividadesView} />} />
+      <Route path='/actividades/detalles/:id' element={<AuthenticationGuard component={DetailActividad} />} />
+      <Route path='/actividades/editar/:id' element={<AuthenticationGuard component={EditActividad} />} />
+      
+
+
+      {/* Periodos Academicos */}
+
+
+
+      {/* Asignaciones */}
+      
+      
+
+
 
 
 
@@ -115,6 +138,7 @@ export default function App() {
       {/* Rutas que puede acceder el director del programa academico */}
       <Route path='/director' element={<AuthenticationGuard component={DirectorView} />} />
       <Route path='/usuarios' element={<AuthenticationGuard component={UsersView} />} />
+      <Route path='/docente' element={<AuthenticationGuard component={DocenteView} />} />
 
 
     </Routes>
