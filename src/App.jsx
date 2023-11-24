@@ -60,6 +60,10 @@ import DetailGrupo from './components/grupo_components/DetailGrupo'
 import EditGrupo from './components/grupo_components/EditGrupo'
 
 
+//Asignaciones
+import AsignacionView from './views/main_views/AsignacionView'
+
+
 
 export default function App() {
 
@@ -126,6 +130,8 @@ export default function App() {
 
 
       {/* Asignaciones */}
+      <Route path='/asignaciones' element={<AuthenticationGuard component={AsignacionView} />} />
+
       
       
 
