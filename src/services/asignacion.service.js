@@ -8,9 +8,9 @@ export const columns = [
     { name: "ACCIONES", uid: "acciones" },
 ];
 
-export const getActividadesList = async (accessToken) => {
+export const getAsignacionesList = async (accessToken) => {
     const config = {
-        url: `${apiServerUrl}/api/v1/actividad`,
+        url: `${apiServerUrl}/api/v1/asignacion`,
         method: "GET",
         headers: {
             "content-type": "application/json",
@@ -26,9 +26,9 @@ export const getActividadesList = async (accessToken) => {
     };
 };
 
-export const getActividad = async (accessToken, id) => {
+export const getAsignacion = async (accessToken, id) => {
     const config = {
-        url: `${apiServerUrl}/api/v1/actividad/${id}`,
+        url: `${apiServerUrl}/api/v1/asignacion/${id}`,
         method: "GET",
         headers: {
             "content-type": "application/json",
@@ -45,7 +45,7 @@ export const getActividad = async (accessToken, id) => {
 };
 
 //Actualizar curso de la base de datos
-export const updateActividad = async (accessToken, id, bodyData) => {
+export const updateAsignacion = async (accessToken, id, bodyData) => {
     const config = {
         url: `${apiServerUrl}/api/v1/actividad/${id}`,
         method: "PUT",

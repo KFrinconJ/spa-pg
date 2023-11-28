@@ -62,7 +62,9 @@ import EditGrupo from './components/grupo_components/EditGrupo'
 
 //Asignaciones
 import AsignacionView from './views/main_views/AsignacionView'
-
+import AsignacionesDocente from './components/asignaciones_components/AsignacionesDocente'
+import CursosDocente from './components/curso_components/CursosDocente'
+import FuncionesSustantivasDocente from './components/funciones_sustantivas_componentes/FuncionesSustantivasDocente'
 
 
 export default function App() {
@@ -91,8 +93,10 @@ export default function App() {
 
       {/* Cursos */}
       <Route path='/cursos' element={<AuthenticationGuard component={CursosView} />} />
+      <Route path='/cursos/docente' element={<AuthenticationGuard component={CursosDocente} />} />
       <Route path='cursos/detalles/:id' element={<AuthenticationGuard component={DetailCurso} />} />
       <Route path='cursos/editar/:id' element={<AuthenticationGuard component={EditCurso} />} />
+
 
 
       {/* Programa Academico */}
@@ -110,6 +114,8 @@ export default function App() {
 
       {/* Funciones Sustantivas */}
       <Route path='/funciones-sustantivas' element={<AuthenticationGuard component={FuncionesSustantivasView} />} />
+      <Route path='/funciones-sustantivas/docente' element={<AuthenticationGuard component={FuncionesSustantivasDocente} />} />
+
 
       {/* Dependencias */}
       <Route path='/dependencias' element={<AuthenticationGuard component={DependenciasView} />} />
@@ -131,6 +137,7 @@ export default function App() {
 
       {/* Asignaciones */}
       <Route path='/asignaciones' element={<AuthenticationGuard component={AsignacionView} />} />
+      <Route path='/asignaciones/docente' element={<AuthenticationGuard component={AsignacionesDocente} />} />
 
       
       
