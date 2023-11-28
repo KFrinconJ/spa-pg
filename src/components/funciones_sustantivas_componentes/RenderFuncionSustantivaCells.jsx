@@ -30,14 +30,14 @@ export default function renderCursoCell(data, columnKey) {
         case "acciones":
             return (
                 <div className="relative flex items-center gap-2">
-                    <Tooltip content="Detalles del curso">
+                    <Tooltip content="Detalles de la funcion sustantiva">
                         <Link as={RouterLink} to={`detalles/${data.id}`}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EyeIcon />
                             </span>
                         </Link>
                     </Tooltip>
-                    <Tooltip content="Editar curso">
+                    <Tooltip content="Editar funcion sustantiva">
                         <Link as={RouterLink} to={`editar/${data.id}`}>
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EditIcon />
