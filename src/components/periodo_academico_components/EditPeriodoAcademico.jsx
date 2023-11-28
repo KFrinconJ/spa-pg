@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import LoadingView from '../../views/LoadingView';
 import { usePeriodoAcademico } from '../../hooks/usePeriodoAcademico';
 import NavBar from '../NavBar';
-import UpdateProgramaAcadmicoForm from './UpdateProgramaAcademicoForm';
+import UpdatePeriodoAcademicoForm from './UpdatePeriodoAcademicoForm';
 
 export default function EditPeriodoAcademico() {
     // Obtenemos el email desde los parámetros de la ruta
@@ -21,7 +21,7 @@ export default function EditPeriodoAcademico() {
             <>
                 <NavBar></NavBar>
                 <div className="max-w-4xl mx-auto mt-10 shadow-md overflow-hidden md:max-w-2xl">
-                    <UpdateProgramaAcadmicoForm dataIn={periodoAcademico} />
+                    <UpdatePeriodoAcademicoForm dataIn={periodoAcademico} />
                 </div>
             </>
         );
