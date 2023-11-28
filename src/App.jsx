@@ -43,6 +43,10 @@ import EditDependencia from './components/dependencia_components/EditDependencia
 import DetailDependencia from './components/dependencia_components/DetailDependencia'
 
 
+//PeriodosAcademicos
+import PeriodosAcademicosView from './views/main_views/PeriodosAcademicosView'
+
+
 
 //Actividad
 import ActividadesView from './views/main_views/ActividadesView'
@@ -66,6 +70,7 @@ import AsignacionView from './views/main_views/AsignacionView'
 import AsignacionesDocente from './components/asignaciones_components/AsignacionesDocente'
 import CursosDocente from './components/curso_components/CursosDocente'
 import FuncionesSustantivasDocente from './components/funciones_sustantivas_componentes/FuncionesSustantivasDocente'
+import EditPeriodoAcademico from './components/periodo_academico_components/EditPeriodoAcademico'
 
 
 export default function App() {
@@ -135,6 +140,8 @@ export default function App() {
 
 
       {/* Periodos Academicos */}
+      <Route path='/periodo-academico' element={<AuthenticationGuard component={PeriodosAcademicosView} />} />
+      <Route path='/periodo-academico/editar/:id' element={<AuthenticationGuard component={EditPeriodoAcademico} />} />
 
 
 
