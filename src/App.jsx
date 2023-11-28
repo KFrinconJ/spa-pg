@@ -52,7 +52,8 @@ import EditActividad from './components/actividad_components/EditActividad'
 
 //Funciones Sustantivas
 import FuncionesSustantivasView from './views/main_views/FuncionesSustantivasView'
-
+import EditFuncionSustantiva from './components/funciones_sustantivas_componentes/EditFuncionSustantiva'
+import DetailFuncionSustantiva from './components/funciones_sustantivas_componentes/DetailFuncionSustantiva'
 
 //Grupos
 import GruposView from './views/main_views/GruposView'
@@ -114,6 +115,8 @@ export default function App() {
 
       {/* Funciones Sustantivas */}
       <Route path='/funciones-sustantivas' element={<AuthenticationGuard component={FuncionesSustantivasView} />} />
+      <Route path='/funciones-sustantivas/detalles/:id' element={<AuthenticationGuard component={DetailFuncionSustantiva} />} />
+      <Route path='/funciones-sustantivas/editar/:id' element={<AuthenticationGuard component={EditFuncionSustantiva} />} />
       <Route path='/funciones-sustantivas/docente' element={<AuthenticationGuard component={FuncionesSustantivasDocente} />} />
 
 

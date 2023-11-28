@@ -41,13 +41,6 @@ export default function renderUserCell(user, columnKey) {
                             </span>
                         </Link>
                     </Tooltip>
-                    <Tooltip color="danger" content="Delete user">
-                        <Link as={RouterLink} to={`/delete/${user.email}`}>
-                            <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                                <DeleteIcon />
-                            </span>
-                        </Link>
-                    </Tooltip>
                 </div>
             );
         default:

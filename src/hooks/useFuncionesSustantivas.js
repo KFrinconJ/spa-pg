@@ -13,7 +13,7 @@ export const useFuncionesSustantivas = () => {
             const response = await getFuncionesSustantivasList(accessToken)
 
             if (response.error) {
-                console.error('Error al obtener la lista de actividades:', response.error);
+                console.error('Error al obtener la lista de funciones sustantivas:', response.error);
                 setFuncionesSustantivasList([{ name: "None" }])
             } else {
                 setFuncionesSustantivasList(response.data);
@@ -42,7 +42,7 @@ export const useFuncionSustantiva = (id) => {
             const response = await getFuncionSustantiva(accessToken, id)
 
             if (response.error) {
-                console.error('Error al obtener la Periodo Academico:', response.error);
+                console.error('Error al obtener la funcion sustantiva:', response.error);
                 setFuncionSustantiva([{ name: "None" }])
             } else {
                 setFuncionSustantiva(response.data);
