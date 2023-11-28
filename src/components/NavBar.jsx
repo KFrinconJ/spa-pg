@@ -55,11 +55,6 @@ export default function NavBar() {
             Perfil
           </Link>
         </NavbarItem>
-        <NavbarItem>
-          <Link as={RouterLink} to={"/admin"} color="foreground" href="/admin">
-            Admin
-          </Link>
-        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end">

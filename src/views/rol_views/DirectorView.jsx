@@ -3,6 +3,8 @@ import CardItem from "../../components/CardItem"
 import ClassIcon from "../../assets/icon_class.png"
 import TeachIcon from "../../assets/icon_teach.png"
 import UsersIcon from "../../assets/icon_users.png"
+import OfficeIcon from "../../assets/icon_office.png"
+
 
 import { useAuth0 } from "@auth0/auth0-react"
 
@@ -20,7 +22,7 @@ export default function DirectorView() {
                     <CardItem cardTitle={"Funciones Sustantivas"} cardImg={TeachIcon} cardAltImg={"Icono de persona impartiendo clases"} cardLink={"/funciones-sustantivas"} />
                     <CardItem cardTitle={"Cursos"} cardImg={ClassIcon} cardAltImg={"Icono de tablero de clases"} cardLink={"/cursos"} />
                     <CardItem cardTitle={"Docentes"} cardImg={UsersIcon} cardAltImg={"Icono de usuarios"} cardLink={"/usuarios"} />
-                    <CardItem cardTitle={"Asignaciones"} cardImg={OfficeIcon} cardAltImg={"Icono de edificio representando una oficina"} cardLink={"/asignaciones"} />
+                    <CardItem cardTitle={"Asignaciones"} cardImg={OfficeIcon} cardAltImg={"Icono de edificio representando una oficina"} cardLink={"/asignaciones/docente"} />
 
                     {/* Agregar Asignacion */}
                 </div>
